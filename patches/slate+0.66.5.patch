@@ -1,0 +1,44 @@
+diff --git a/node_modules/slate/dist/interfaces/editor.d.ts b/node_modules/slate/dist/interfaces/editor.d.ts
+index d3852ae..df99f25 100644
+--- a/node_modules/slate/dist/interfaces/editor.d.ts
++++ b/node_modules/slate/dist/interfaces/editor.d.ts
+@@ -27,6 +27,7 @@ export interface BaseEditor {
+     insertNode: (node: Node) => void;
+     insertText: (text: string) => void;
+     removeMark: (key: string) => void;
++    insertData: (editor: ReactEditor, data: DataTransfer) => void;
+ }
+ export declare type Editor = ExtendedType<'Editor', BaseEditor>;
+ export interface EditorInterface {
+diff --git a/node_modules/slate/dist/interfaces/element.d.ts b/node_modules/slate/dist/interfaces/element.d.ts
+index cedcf10..5c4ade8 100644
+--- a/node_modules/slate/dist/interfaces/element.d.ts
++++ b/node_modules/slate/dist/interfaces/element.d.ts
+@@ -6,6 +6,7 @@ import { Path, Descendant, ExtendedType, Ancestor } from '..';
+  */
+ export interface BaseElement {
+     children: Descendant[];
++    type: string;
+ }
+ export declare type Element = ExtendedType<'Element', BaseElement>;
+ export interface ElementInterface {
+diff --git a/node_modules/slate/dist/interfaces/node.d.ts b/node_modules/slate/dist/interfaces/node.d.ts
+index 9fe3f6d..8d2bc5a 100644
+--- a/node_modules/slate/dist/interfaces/node.d.ts
++++ b/node_modules/slate/dist/interfaces/node.d.ts
+@@ -12,6 +12,7 @@ export interface NodeInterface {
+         reverse?: boolean;
+     }) => Generator<NodeEntry<Ancestor>, void, undefined>;
+     child: (root: Node, index: number) => Descendant;
++    type: string;
+     children: (root: Node, path: Path, options?: {
+         reverse?: boolean;
+     }) => Generator<NodeEntry<Descendant>, void, undefined>;
+@@ -50,6 +51,7 @@ export interface NodeInterface {
+     }) => Generator<NodeEntry, void, undefined>;
+     parent: (root: Node, path: Path) => Ancestor;
+     string: (node: Node) => string;
++    
+     texts: (root: Node, options?: {
+         from?: Path;
+         to?: Path;
